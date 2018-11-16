@@ -1,0 +1,17 @@
+---
+- hosts: ubuntu
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  tasks:
+  - name: Install Apache on Ubuntu Machine
+    apt:
+     name: apache2
+     state: present
+  - name: Copy Index.html File
+    copy: src=/home/narendra/playbooks/naren.html dest=/var/www/html/index.html
+  - name: Start Apache After Installation
+    service:
+     name: apache2
+     state: started
