@@ -1,0 +1,25 @@
+---
+- hosts: ubuntu
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  tasks:
+  - name: Install Apache and Elinks on Ubuntu Machine
+    apt:
+     name: "{{ item }}"
+     state: present
+    with_items:
+     - apache2
+     - elinks
+  - name: Copy Index.html File
+    copy:
+     dest: /var/www/html/index.html
+     content: |
+       Hello World!
+       This is my file.
+     force: true
+  - name: Start Apache After Installation
+    service:
+     name: apache2
+     state: started
