@@ -1,0 +1,29 @@
+---
+- hosts: aws
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  tasks:
+  - name: Install Apache and Elinks
+    yum:
+     name: "{{ item }}"
+     state: present
+    with_items:
+    - httpd
+    - elinks
+  - name: Create Index.html File
+    copy:
+     dest: /var/www/html/index.html
+     content: |
+       Hello World!
+       This is Narendra's Ansible Script
+  - name: Start Apache Service
+    service:
+     name: httpd
+     state: started
+  - name: Use of Register and Debug Statements
+    shell: "cat /var/www/html/index.html"
+    register: myOutput
+  - debug:
+     var: myOutput.stdout_lines
