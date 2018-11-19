@@ -1,0 +1,17 @@
+---
+- hosts: aws
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: false
+  tasks:
+  - name: Install apache
+    yum:
+     name: httpd
+     state: present
+    notify: start apache
+  handlers:
+  - name: start apache
+    service: 
+     name: httpd
+     state= started
