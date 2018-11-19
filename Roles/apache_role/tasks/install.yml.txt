@@ -1,0 +1,6 @@
+---
+# Install httpd on EC2 Machine
+- name: Install httpd
+  yum:
+    name: httpd
+    state: latest

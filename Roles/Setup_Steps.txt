@@ -1,0 +1,18 @@
+1. Ansible Config File is /etc/ansible/ansible.cfg.Hash out Inventory and Sudo user entry in Config File to start.
+2. Inventory is located in /etc/ansible/hosts file.Make Entry for remote nodes Like below:
+[local]
+localhost
+[aws]
+abcd.com
+xyzw.com
+3. Ansible should be setup between Controlling machine and Remote Machines. Ansible user should have sudo permissions without Password if allowed.
+4. Enable sudo by editing /etc/sudoers file for ansible user.Entry to be made is below:
+ansible ALL=(ALL) NOPASSWD:ALL
+5. Setup passwordless ssh between Controlling Machine and Remote Node by copying ansible user public key from CM to Remote Node using
+ssh-copy-id ansible@remote_node_ip command or by pasting into /home/ansible/.ssh/authorized_keys file.First Generate
+ansible user public key using ssh-keygen command on Controlling Machine and transfer to itself also for passwordless ssh.
+6. .ssh directory should have 700 permissions and authorized_keys file should have 600 permissions for ansible user.
+7. Ansible Role directory to be created using below command:
+ansible-galaxy init apache_role
+8. Syntax to be checked using below command
+ansible-playbook ansible_playbook.yml --syntax-check

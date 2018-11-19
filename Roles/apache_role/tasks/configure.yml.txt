@@ -1,0 +1,13 @@
+---
+# Configuring Apache Server
+- name: Transferring httpd file
+  copy:
+   src: httpd.conf
+   dest: /etc/httpd/conf/httpd.conf
+   force: yes
+  notify:
+  - start httpd service
+- name: Sending Sample html file
+  copy:
+   src: index.html
+   dest: /var/www/html/index.html
