@@ -1,0 +1,4 @@
+For Ansible to Work on EC2 Servers Do below steps in /etc/ssh/sshd_config file:
+1. PubkeyAuthentication yes
+2. PasswordAuthentication no -> to be removed
+3. Restart sshd service
