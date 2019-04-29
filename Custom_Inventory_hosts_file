@@ -1,0 +1,6 @@
+[web-servers]
+abcd.co.in  ansible_host=10.10.10.10
+demf.co.in  ansible_host=10.10.10.20
+
+[web-servers:vars]
+ansible_user=ec2-user
