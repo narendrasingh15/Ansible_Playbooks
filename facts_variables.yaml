@@ -1,0 +1,22 @@
+---
+- hosts: web
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: Install apache
+    yum:
+     name: '{{ item }}'
+     state: present
+    with_items:
+    - httpd
+  - name: Copy index.html file
+    copy:
+     dest: /var/www/html/index.html
+     content: "Hello This Node is {{ ansible_host }} of architecture {{ ansible_architecture }} Installed by Naren Singh at {{ ansible_date_time }}\n"
+    notify: restart apache service
+  handlers:
+  - name: restart apache service
+    service:
+     name: httpd
+     state: started
