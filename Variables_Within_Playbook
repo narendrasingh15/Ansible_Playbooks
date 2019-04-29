@@ -1,0 +1,35 @@
+---
+- hosts: web
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  vars:
+  - mycontent: "Hello This Node is {{ ansible_host }} of architecture {{ ansible_architecture }} Installed by Naren Singh\n"
+  tasks:
+  - name: Install apache
+    yum:
+     name: httpd
+     state: present
+  - name: Copy index.html file
+    copy:
+     dest: /var/www/html/index.html
+     content: '{{ mycontent }}'
+    notify: restart apache service
+  handlers:
+  - name: restart apache service
+    service:
+     name: httpd
+     state: started
+- hosts: web
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  vars:
+  - item: elinks
+  tasks:
+  - name: Install elinks
+    yum:
+     name: '{{ item }}'
+     state: present
