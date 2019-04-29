@@ -1,0 +1,2 @@
+mycontent: "This Node is {{ ansible_host }} of architecture {{ ansible_architecture }} Installed by Narendra Singh using variables and {{ ansible_date_time }}\n"
+item: elinks
